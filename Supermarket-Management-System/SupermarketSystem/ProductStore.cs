@@ -1,8 +1,8 @@
 using System;
 
+//Item storing class for the supermarket system
 public class ProductStore
 {
-    //Item info 
     public string prodID { get; set; }
     public string prodName { get; set; }
     public string prodBrand { get; set; }

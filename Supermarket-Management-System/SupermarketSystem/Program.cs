@@ -7,10 +7,11 @@ class Program
     static void Main(string[] args)
     {
         bool startMenu = true;
-        inven inven = new inven();
+        Inventory inven = new Inventory();
 
         while (startMenu)
         {
+            //Print the menu for user to choose from
             Console.WriteLine();
             Console.WriteLine("====================================");
             Console.WriteLine("   SUPERMARKET MANAGEMENT SYSTEM    ");
@@ -23,17 +24,17 @@ class Program
             Console.WriteLine("6. Exit");
             Console.WriteLine("-----------------------------------");
             Console.Write(">Choose from options above: ");
+            //Read user input
+            string option = Console.ReadLine() ?? "";
 
-            string option = Console.ReadLine();
-
-
+            //respond based on user input
             switch (option)
             {
                 case "1":
                     inven.AddItem();
                     break;
                 case "2":
-                    Console.WriteLine("Remove what?" + " TBA");
+                    inven.RemoveItem();
                     break;
                 case "3":
                     Console.WriteLine("Update what?" + " TBA");
@@ -53,61 +54,80 @@ class Program
                     break;
             }
         }
-        
-}
+    }
 
-    public class inven
+
+
+//-------------------------------------------------------------------------------
+
+    //Calls on ProductStore class
+    public class Inventory
     {
-        private ProductStore[] inven = new ProductStore[5];
+        private ProductStore[] Inven = new ProductStore[5];
         private int amount = 0;
 
         public void ReportAll()
         {
             if (amount == 0)
             {
-                Console.WriteLine("No products in inven.");
+                Console.WriteLine("Currently no products.");
                 return;
             }
 
             for (int x = 0; x < amount; x++)
             {
-                inven[x].Report();
+                Inven[x].Report();
             }
         }
+
+//-------------------------------------------------------------------
+
+
+        //Case 1 to add new items/products to inventory
         public void AddItem()
         {
             Console.Write("Give ID: ");
-            string prodID = Console.ReadLine();
+            string itemID = Console.ReadLine() ?? "";
 
-            Console.Write("What Name?: ");
-            string prodName = Console.ReadLine();
+            Console.Write("Name?: ");
+            string prodName = Console.ReadLine() ?? "";
 
-            Console.Write("What Brand?: ");
-            string prodBrand = Console.ReadLine();
+            Console.Write("Brand?: ");
+            string prodBrand = Console.ReadLine() ?? "";
 
-            Console.Write("What Category?: ");
-            string prodCategory = Console.ReadLine();
+            Console.Write("Category?: ");
+            string prodCategory = Console.ReadLine() ?? "";
 
-            Console.Write("What Price?: ");
-            int prodPrice = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("What Amount?: ");
-            int prodStock = Convert.ToInt32(Console.ReadLine());
-
-            Console.Write("Expiry Date: ");
-            string prodExpiry = Console.ReadLine();
-
-            if (amount == inven.Length)
+            Console.Write("Price?: ");
+            string priceInput = Console.ReadLine() ?? "";
+            int prodPrice;
+            if (!int.TryParse(priceInput, out prodPrice))
             {
-                Array.Resize(ref inven, inven.Length * 2);
+                Console.WriteLine("Invalid price input. Using 0.");
+                prodPrice = 0;
             }
 
+            Console.Write("Amount?: ");
+            string stockInput = Console.ReadLine() ?? "";
+            int prodStock;
+            if (!int.TryParse(stockInput, out prodStock))
+            {
+                Console.WriteLine("Invalid amount input. Using 0.");
+                prodStock = 0;
+            }
 
-            var prod = new ProductStore(prodID, prodName, prodBrand, prodCategory, prodPrice, prodStock, prodExpiry);
+            Console.Write("Expiry Date: ");
+            string prodExpiry = Console.ReadLine() ?? "";
 
-            inven[amount] = prod;
+            if (amount == Inven.Length)
+            {
+                Array.Resize(ref Inven, Inven.Length * 2);
+            }
+
+            var prod = new ProductStore(itemID, prodName, prodBrand, prodCategory, prodPrice, prodStock, prodExpiry);
+
+            Inven[amount] = prod;
             amount++;
-
 
             Console.WriteLine("-----------------------------------");
             Console.WriteLine($"'{prodName}' was added.");
@@ -116,5 +136,57 @@ class Program
         }
 
 
+
+//-------------------------------------------------------------------
+
+        //case 2 to remove them from inventory
+        public void RemoveItem()
+        {
+            Console.WriteLine("Remove with ID?>");
+            string IDchoice = Console.ReadLine() ?? "";
+
+            bool exists = false;
+
+            for (int x = 0; x < amount; x++)
+            {
+                if (Inven[x] != null && Inven[x].prodID == IDchoice)
+                {
+                    for (int y = x; y < amount - 1; y++)
+                    {
+                        Inven[y] = Inven[y + 1];
+                    }
+
+                    Inven[amount - 1] = null;
+
+                    amount--;
+
+                    Console.WriteLine("-----------------------------------");
+                    Console.WriteLine("Item removed successfully.");
+                    Console.WriteLine("-----------------------------------");
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists)
+            {
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine("No item.");
+                Console.WriteLine("-----------------------------------");
+            }
+        }
+
+
+
+//-------------------------------------------------------------------
+
+        //case 3 to update items in inventory
+        public void UpdateItem()
+        {
+            Console.WriteLine("Update what item?>");
+            string UDchoice = Console.ReadLine() ?? "";
+
+            // implement update logic...
+        }
     }
 }
