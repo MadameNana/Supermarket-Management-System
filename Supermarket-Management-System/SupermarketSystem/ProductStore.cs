@@ -26,7 +26,7 @@ public class ProductStore
 
 //-------------------------------
 //--Report Method
-    public void Report()
+    public void ProductReport()
     {
         Console.WriteLine("Item:");
         Console.WriteLine($" ID: {prodID}  \n Name: '{prodName}' \n Supplier: '{prodSupplier}' \n Category: '{prodCategory}' \n Price: '{prodPrice}' \n Stock: '{prodStock}' \n Expr-Date: '{prodExpiration}' \n --------------------");

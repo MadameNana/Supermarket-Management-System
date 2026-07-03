@@ -21,6 +21,7 @@ class Program
             Console.WriteLine("> [3] Update product");
             Console.WriteLine("> [4] Search");
             Console.WriteLine("> [5] List All prods");
+            Console.WriteLine("-----------");
             Console.WriteLine("> [0] Exit");
             Console.WriteLine("-----------------------------------");
             Console.Write(">Choose from options above: ");
@@ -76,7 +77,7 @@ class Program
 
             for (int x = 0; x < amount; x++)
             {
-                Inven[x].Report();
+                Inven[x].ProductReport();
             }
         }
 
@@ -318,7 +319,7 @@ class Program
 
             Console.WriteLine("-----------------------------------");
             Console.WriteLine("Product Found:");
-            Inven[x].Report();
+            Inven[x].ProductReport();
             Console.WriteLine("-----------------------------------");
         }
 
@@ -347,7 +348,7 @@ class Program
 
             Console.WriteLine("-----------------------------------");
             Console.WriteLine("Product Found:");
-            Inven[x].Report();
+            Inven[x].ProductReport();
             Console.WriteLine("-----------------------------------");
         }
 
