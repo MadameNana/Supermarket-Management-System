@@ -36,6 +36,7 @@ public class SalesTrack
     //--Report Method
     public void SaleReport()
     {
+        Console.WriteLine("--------------------");
         Console.WriteLine("Sale Report:");
         Console.WriteLine($" Sale ID: {saleID}  \n Date Sold: '{saleDate}' \n Amount Sold: '{saleAmount}' \n --------------------");
         Console.WriteLine(" ");
